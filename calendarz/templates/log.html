@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>ICS Generation Log</h3>
+  <ul class="list-unstyled">
+  {% for item in log %}
+    <li>{{ item }}</li>
+  {% endfor %}
+  </ul>
+  <p>Download this calendar <a href="{{ ics_url }}">here</a>.</p>
+{% endblock %}

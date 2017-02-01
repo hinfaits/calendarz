@@ -1,0 +1,33 @@
+# Documentation:
+# https://developers.google.com/appengine/docs/python/config/appconfig
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+builtins:
+- appstats: on
+
+handlers:
+# - url: /client
+#   static_dir: client
+
+- url: .*
+  script: calendarz.app
+
+# Available libraries:
+# https://developers.google.com/appengine/docs/python/tools/libraries27 
+# libraries:
+# - name: jinja2
+#   version: latest
+
+env_variables:
+  APP_SETTINGS: "calendarz.config.DevelopmentConfig"
+  SECRET_KEY: "change-this"
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^env/.*$

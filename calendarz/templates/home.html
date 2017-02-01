@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% macro render_field(field) -%}
+  {% set with_label = kwargs.pop('no_label', True) %}
+  <div class="form-group{% if field.errors %} has-error{% endif %}">
+    {% if with_label %}
+      <label for="{{ field.name }}">{{ field.label.text }}{% if field.flags.required %} *{% endif %}</label>
+    {% endif %}
+    {% if field.errors %}
+      <span class="error help-block">{{ field.errors|join(', ') }}</span>
+    {% endif %}
+    {% if field.type == 'RadioField' %}
+      {% for choice in field.choices %}
+        <div class="radio">
+          <label>
+            <input type="radio" name="{{ field.name }}" id="{{ field.name }}" value="{{ choice[0] }}"{% if field.data == choice[0] %} checked{% endif %}>
+            {{ choice[1] }}
+          </label>
+        </div>
+      {% endfor %}
+    {% elif field.type == 'StringField' %}
+      <input type="url" name="{{ field.name }}" class="form-control" id="{{ field.name }}" {% if field.data %}value="{{ field.data }}"{% endif %}>
+    {% else %}
+      {# OTHER INPUTS NOT IMPLEMENTED (CHECKBOXES, ETC) #}
+    {% endif %}
+    {% if field.description %}
+      <p class="help-block">{{ field.description|safe }}</p>
+    {% endif %}
+  </div>
+{%- endmacro %}
+
+{% block content %}
+  <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    Google Sheets support coming Soon™.
+  </div>
+
+  {% if ics_url %}
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3>Congratulations</h3>
+    </div>
+    <div class="panel-body" style="font-size: 16px">
+      <p>You've setup your calendar. Download your calendar <a href="{{ ics_url }}">here</a>.</p>
+      <p>Inspect how your calendar is generated through its <a href="{{ log_url }}">log</a>. If your ics file isn't updating with your data, a previous version may be in our cache; if so try viewing its log, as this action will flush the cache.</p>
+    </div>
+  </div>
+  {% endif %}
+
+  <h1>Calendarz</h1>
+  <p class="lead">calendarz generates iCalendar calendars (.ics files) from a compatible data sources.</p>
+  <h1>Quick Start</h1>
+  <p>Get started by selecting the type of your data, and entering the URL where it can be found.</p>
+  <p>Try it out using this <a href="https://www.dropbox.com/s/bygy152mg4ccjvk/data.csv?dl=1">CSV file</a>.</p>
+  <div class="well" style="">
+    <form method="post">
+      {{ form.csrf_token }}
+      {{ render_field(form.source_type) }}
+      {{ render_field(form.url) }}
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+
+  <h1>Help</h1>
+  <p>calendarz will parse a CSV or JSON file to generate iCalendar (.ics) files which can be imported in to different calendar apps, such as Google Calendar, Outlook, and OSX Calendar. Simply select the type of file which contains your data, and enter its URL above.</p>
+  <h4>I have a calendar, now what?</h4>
+  <p>Paste the link in to your calendar app, or upload the ics file. By directly using the link in your calendar app, your calendar should autommatically update as the source data is updated.</p>
+  <h4>Compatible Data Sources</h4>
+  <h4>I've Lost the Link</h4>
+  <p>Sorry, but we can't get links back. But a just-as-good calendar can be regenerated from the same data above.
+  <h4>Information about iCalendar</h4>
+  <p>Some web resources about the iCalendar format and generating compatible files</h4>
+  <ul class="list-unstyled">
+    <li><a href="https://tools.ietf.org/html/rfc5545">IETF RFC 5545</a> - the "master" document defining iCalendar specifications. RFC 5545 obsoletes <a href="https://tools.ietf.org/html/rfc2445">RFC 2445</a>. Some modifications to the specs are proposed <a href="https://tools.ietf.org/html/draft-daboo-icalendar-extensions-06">here</a>, and are implemented in some calendar apps.</li>
+    <li><a href="http://www.kanzaki.com/docs/ical/">This website</a> - based on RFC 2445 succinctly covers many components of iCalendar files.</li>
+  </ul>  
+{% endblock %}

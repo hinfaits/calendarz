@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% macro render_field(field) -%}
+    {% set with_label = kwargs.pop('with_label', False) %}
+    {% set placeholder = '' %}
+    {% if not with_label %}
+        {% set placeholder = field.label.text %}
+    {% endif %}
+    <div class="control-group {% if field.errors %}error{% endif %}">
+        {% if with_label %}
+            <label for="{{ field.id }}" class="control-label">
+                {{ field.label.text }}{% if field.flags.required %} *{% endif %}:
+            </label>
+        {% endif %}
+        <div class="controls">
+            {% set class_ = kwargs.pop('class_', '') %}
+            {% if field.flags.required %}
+                {% set class_ = class_ + ' required' %}
+            {% endif %}
+            {% if field.type == 'BooleanField' %}
+                <label class="checkbox">
+                    {{ field(class_=class_, **kwargs) }}
+                    {{ field.label.text|safe }}
+                </label>
+            {% else %}
+                {% if field.type in ('TextField', 'TextAreaField', 'PasswordField') %}
+                    {% set class_ = class_ + ' input-xlarge' %}
+                {% elif field.type == 'FileField' %}
+                    {% set class_ = class_ + ' input-file' %}
+                {% endif %}
+                {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
+            {% endif %}
+            {% if field.errors %}
+                <span class="error help-inline">{{ field.errors|join(', ') }}</span>
+            {% endif %}
+            {% if field.description %}
+                <p class="help-block">{{ field.description|safe }}</p>
+            {% endif %}
+        </div>
+    </div>
+{%- endmacro %}
+
+{% block content %}
+  {% if calendar %}
+  <p>{{ calendar.name }}</p>
+  {% endif %}
+  <h1>Calendarz</h1>
+  <p class="lead"><strong>calendarz</strong> is an ugly, but functional generator of iCalendar calendars (.ics file) from a compatible data source.</p>
+
+  <h1>Quick Start</h1>
+  <form method="post">
+    {{ form.csrf_token }}
+    <div class="form-group">
+      <label for="form.source_type.label.field_id">{{ form.source_type.label.text }}</label>
+      {% for choice in form.source_type.choices %}
+      <div class="radio">
+        <label>
+          <input type="radio" name="{{ form.source_type.label.field_id }}" id="{{ choice[0] }}" value="{{ choice[0] }}" {% if form.source_type.data == choice[0] %}checked{% endif %}>
+          {{ choice[1] }}
+        </label>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.url.label.field_id }}">{{ form.url.label.text }}</label>
+      <input type="url" name="{{ form.url.label.field_id }}" class="form-control" id="{{ form.url.label.field_id }}" {% if form.url.data %}value="{{ form.url.data }}"{% endif %}>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+
+  <h1>Help</h1>
+{% endblock %}
