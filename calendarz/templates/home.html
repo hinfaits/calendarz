@@ -30,10 +30,12 @@
 {%- endmacro %}
 
 {% block content %}
+<!--
   <div class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Google Sheets support coming Soon™.
   </div>
+-->
 
   {% if ics_url %}
   <div class="panel panel-success">
@@ -48,10 +50,10 @@
   {% endif %}
 
   <h1>Calendarz</h1>
-  <p class="lead">calendarz dynamically generates iCalendar calendars (.ics files) from a compatible data sources, .ics files from calendarz change as the source changes.</p>
+  <p class="lead">Calendarz dynamically generates iCalendar calendars (.ics files) from a compatible data sources. ics files from Calendarz change as the source changes when accessed directly from the link.</p>
   <h1>Quick Start</h1>
   <p>Get started by selecting the type of your data, and entering the URL where it can be found.</p>
-  <p>Try it out using this <a href="https://www.dropbox.com/s/bygy152mg4ccjvk/data.csv?dl=1">CSV file</a>.</p>
+  <p>Try it out using this <a href="https://www.dropbox.com/s/bygy152mg4ccjvk/data.csv?dl=1">CSV file</a>. Below, select CSV and paste the link to the file.</p>
   <div class="well" style="">
     <form method="post">
       {{ form.csrf_token }}
