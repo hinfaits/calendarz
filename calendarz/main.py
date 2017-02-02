@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 
-from flask import Flask, render_template, url_for, request, redirect, abort, Response
+from flask import Flask, render_template, url_for, request, abort, Response
 
 from calendarz import config
 from calendarz import http_error_handlers
@@ -11,7 +11,7 @@ from calendarz import utils
 from calendarz.calendar import Calendar
 from calendarz.forms import NewForm, EditForm
 
-reload(sys)  
+reload(sys)
 sys.setdefaultencoding('utf8')
 
 logger = logging.getLogger(__name__)
@@ -68,7 +68,7 @@ def render_ics(cal_id, method):
             ics, log = calendar.serve_ics()
             filename = "{}.ics".format(calendar.key.id())
             return Response(ics,
-                            mimetype="text/calendar", 
+                            mimetype="text/calendar",
                             headers={"Content-Disposition":
                                      "attachment;filename={}".format(filename)})
         elif method == "log":

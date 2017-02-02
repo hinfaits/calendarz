@@ -1,8 +1,8 @@
-import json 
+import json
 
 from calendarz.sources.base_source import BaseSource
 from calendarz.sources import exceptions
-from calendarz import utils
+# from calendarz import utils
 
 
 class JsonSource(BaseSource):
@@ -18,10 +18,3 @@ class JsonSource(BaseSource):
         except exceptions.FailedDownloadException:
             log.append("Failed to download.")
             return list()
-
-    def download(self):
-        res = utils.get_url(self.url)
-        if res:
-            return res
-        else:
-            raise exceptions.FailedDownloadException
