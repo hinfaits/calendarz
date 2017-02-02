@@ -75,8 +75,8 @@ def render_ics(cal_id, method):
             ics, log = calendar.serve_ics(flush_cache=True)
             ics_url = url_for("render_ics", cal_id=calendar.key.id(), method="ics")
             return render_template("log.html", log=log, ics_url=ics_url)
-
+    abort(404)
 
 @app.route('/about')
 def about():
-    abort(404)
+    return render_template("about.html")

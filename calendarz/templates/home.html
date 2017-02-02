@@ -64,12 +64,27 @@
   <h1>Help</h1>
   <p>calendarz will parse a CSV or JSON file to generate iCalendar (.ics) files which can be imported in to different calendar apps, such as Google Calendar, Outlook, and OSX Calendar. Simply select the type of file which contains your data, and enter its URL above.</p>
   <h4>I have a calendar, now what?</h4>
-  <p>Paste the link in to your calendar app, or upload the ics file. By directly using the link in your calendar app, your calendar should autommatically update as the source data is updated.</p>
-  <h4>Compatible Data Sources</h4>
+  <p>Paste the link in to your calendar app, or upload the ics file. By directly using the link in your calendar app, your calendar should automatically update as the source data is updated.</p>
   <h4>I've Lost the Link</h4>
-  <p>Sorry, but we can't get links back. But a just-as-good calendar can be regenerated from the same data above.
-  <h4>Information about iCalendar</h4>
-  <p>Some web resources about the iCalendar format and generating compatible files</h4>
+  <p>Sorry, but we can't get links back. But a just-as-good calendar can be regenerated above from the same source.</p>
+  <h4>Compatible Data Sources</h4>
+  <p>Calendars can be generated from CSV or JSON files. Examples of well-formed files can be found here: <a href="https://www.dropbox.com/s/bygy152mg4ccjvk/data.csv?dl=1">CSV</a> <a href="https://www.dropbox.com/s/kt8ovs5m0rz575v/data.json?dl=1">JSON</a>.</p>
+  <p>A brief description of the fields:</p>
+  <ul>
+    <li><strong>uid</strong> an unique identifier for this event (text)</li>
+    <li><strong>dtstamp</strong> event creation time (datetime)</li>
+    <li><strong>dtstart</strong> event start time (datetime)</li>
+    <li><strong>dtend</strong> event end time (datetime)</li>
+    <li><strong>duration</strong> event duration (<a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 spec</a>)</li>
+    <li><strong>summary</strong> short, primary event info (text)</li>
+    <li><strong>description</strong> longer, secondary event info (text)</li>
+    <li><strong>location</strong> event venue (text)</li>
+    <li><strong>geo</strong> latitude and longitude in decimal fractions of degrees (two semicolon-separated floats)</li>
+  </ul>
+  <p>All of uid, dtstamp, and dtstart must be specified. No more than one of dtend and duration should be specified.</p>
+  <p>Datetimes: the recommend format of dtstamp, dtstart and dtend is dd-MMM-yy hh:mm +tztz (eg 04-Feb-17 15:30 -0700). The timezone should be represented as an offset from UTC; timezone abbreviations (eg EST) are ignored. Some other formats (including ISO 8601) may work. Only dtstamp, dtstart and dtend are parsed; other fields are merely transposed from one file to another.</p>
+  <p>Nonconforming calendars can be generated.</p>
+  <h4>More Information About iCalendar</h4>
   <ul class="list-unstyled">
     <li><a href="https://tools.ietf.org/html/rfc5545">IETF RFC 5545</a> - the "master" document defining iCalendar specifications. RFC 5545 obsoletes <a href="https://tools.ietf.org/html/rfc2445">RFC 2445</a>. Some modifications to the specs are proposed <a href="https://tools.ietf.org/html/draft-daboo-icalendar-extensions-06">here</a>, and are implemented in some calendar apps.</li>
     <li><a href="http://www.kanzaki.com/docs/ical/">This website</a> - based on RFC 2445 succinctly covers many components of iCalendar files.</li>

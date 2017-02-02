@@ -8,17 +8,8 @@ builtins:
 - appstats: on
 
 handlers:
-# - url: /client
-#   static_dir: client
-
 - url: .*
   script: calendarz.app
-
-# Available libraries:
-# https://developers.google.com/appengine/docs/python/tools/libraries27 
-# libraries:
-# - name: jinja2
-#   version: latest
 
 env_variables:
   APP_SETTINGS: "calendarz.config.DevelopmentConfig"
