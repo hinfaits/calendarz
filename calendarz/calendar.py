@@ -46,9 +46,9 @@ class Calendar(ndb.Model):
         cal = icalendar.Calendar()
         cal.add('version', '2.0')
         cal.add('x-wr-calname', 'My Calendar')
-        cal.add('prodid', '{}'.format(self.name))
+        cal.add('prodid', '-//Calendarz//Aaron Tsui//EN')
         cal.add('x-original-url', 'http://hinfaits.com/')
-        cal.add('dtstamp', datetime.now())
+        # cal.add('dtstamp', datetime.now())
         for event_dict in self.source.get().get_events(log):
             count += 1
             log.append("Processing event {}".format(count))

@@ -84,7 +84,8 @@
     <li><strong>geo</strong> latitude and longitude in decimal fractions of degrees (two semicolon-separated floats)</li>
   </ul>
   <p>All of uid, dtstamp, and dtstart must be specified. No more than one of dtend and duration should be specified.</p>
-  <p>Datetimes: the recommend format of dtstamp, dtstart and dtend is dd-MMM-yy hh:mm +tztz (eg 04-Feb-17 15:30 -0700). The timezone should be represented as an offset from UTC; timezone abbreviations (eg EST) are ignored. Some other formats (including ISO 8601) may work. Only dtstamp, dtstart and dtend are parsed; other fields are merely transposed from one file to another.</p>
+  <p>uid should be an email or URL, and each uid should be unique.</p>
+  <p>Datetimes: the recommend format of dtstamp, dtstart and dtend is dd-MMM-yy hh:mm +tztz (eg 04-Feb-17 15:30 -0700). The timezone should be represented as an offset from UTC; timezone abbreviations (eg EST) are ignored. Some other formats (including ISO 8601) may work. Only the datetime fields (dtstamp, dtstart and dtend) are parsed; other fields are merely transposed from one file to another.</p>
   <p>Nonconforming calendars can be generated.</p>
   <h4>More Information About iCalendar</h4>
   <ul class="list-unstyled">

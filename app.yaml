@@ -12,7 +12,7 @@ handlers:
   script: calendarz.app
 
 env_variables:
-  APP_SETTINGS: "calendarz.config.DevelopmentConfig"
+  APP_SETTINGS: "calendarz.config.ProductionConfig"
   SECRET_KEY: "change-this"
 
 skip_files:
