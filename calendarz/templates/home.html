@@ -30,10 +30,12 @@
 {%- endmacro %}
 
 {% block content %}
+<!--
   <div class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Google Sheets support coming Soon™.
   </div>
+-->
 
   {% if ics_url %}
   <div class="panel panel-success">
@@ -48,10 +50,10 @@
   {% endif %}
 
   <h1>Calendarz</h1>
-  <p class="lead">calendarz generates iCalendar calendars (.ics files) from a compatible data sources.</p>
+  <p class="lead">Calendarz dynamically generates iCalendar calendars (.ics files) from a compatible data sources. ics files from Calendarz change as the source changes when accessed directly from the link.</p>
   <h1>Quick Start</h1>
   <p>Get started by selecting the type of your data, and entering the URL where it can be found.</p>
-  <p>Try it out using this <a href="https://www.dropbox.com/s/bygy152mg4ccjvk/data.csv?dl=1">CSV file</a>.</p>
+  <p>Try it out using this <a href="https://www.dropbox.com/s/bygy152mg4ccjvk/data.csv?dl=1">CSV file</a>. Below, select CSV and paste the link to the file.</p>
   <div class="well" style="">
     <form method="post">
       {{ form.csrf_token }}
@@ -82,7 +84,8 @@
     <li><strong>geo</strong> latitude and longitude in decimal fractions of degrees (two semicolon-separated floats)</li>
   </ul>
   <p>All of uid, dtstamp, and dtstart must be specified. No more than one of dtend and duration should be specified.</p>
-  <p>Datetimes: the recommend format of dtstamp, dtstart and dtend is dd-MMM-yy hh:mm +tztz (eg 04-Feb-17 15:30 -0700). The timezone should be represented as an offset from UTC; timezone abbreviations (eg EST) are ignored. Some other formats (including ISO 8601) may work. Only dtstamp, dtstart and dtend are parsed; other fields are merely transposed from one file to another.</p>
+  <p>uid should be an email or URL, and each uid should be unique.</p>
+  <p>Datetimes: the recommend format of dtstamp, dtstart and dtend is dd-MMM-yy hh:mm +tztz (eg 04-Feb-17 15:30 -0700). The timezone should be represented as an offset from UTC; timezone abbreviations (eg EST) are ignored. Some other formats (including ISO 8601) may work. Only the datetime fields (dtstamp, dtstart and dtend) are parsed; other fields are merely transposed from one file to another.</p>
   <p>Nonconforming calendars can be generated.</p>
   <h4>More Information About iCalendar</h4>
   <ul class="list-unstyled">

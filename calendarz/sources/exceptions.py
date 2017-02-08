@@ -1,8 +1,14 @@
 class BaseSourceException(Exception):
-    pass
+    """
+    Base exception raised by a Source class
+    """
 
 class InvalidUrlException(BaseSourceException):
-    pass
+    """
+    Raised when an invalid URL is detected
+    """
 
 class FailedDownloadException(BaseSourceException):
-    pass
+    """
+    Raised when downloading from `self.url` results in an error
+    """

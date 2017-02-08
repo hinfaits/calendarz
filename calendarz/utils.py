@@ -1,5 +1,4 @@
 import logging
-import random
 from urlparse import urlparse
 
 from google.appengine.api import urlfetch
@@ -15,23 +14,23 @@ def validate_url(url):
     return bool(parsed_url.scheme)
 
 
-def parse_datetime(dt):
+def parse_datetime(dt_string):
     """
-    Parse `dt` in to a timezone-aware datetime.datetime object. Inputs `dt` without
-    timezone info will have UTC tzinfo added
+    Parse `dt_string` in to a timezone-aware datetime.datetime object. 
+    Inputs `dt_string` without timezone info will have UTC tzinfo added.
 
     Suggested Inputs
         ISO 8601 DT strings         - 2017-01-12T10:22:25+0000
         This human readable format  - dd-MMM-yy hh:mm +tztz - eg 04-Feb-17 11:30 -0700
     """
-    parsed = dateutil.parser.parse(dt)
+    parsed = dateutil.parser.parse(dt_string)
     if parsed.tzinfo:
         return parsed.astimezone(dateutil.tz.tzutc())
     else:
         return parsed.replace(tzinfo=dateutil.tz.tzutc())
 
-def datetime_to_string(dt):
-    return dt.strftime("%d-%b-%Y %H:%M:%S %z")
+def datetime_to_string(dt_object):
+    return dt_object.strftime("%d-%b-%Y %H:%M:%S %z")
 
 
 def event_from_dict(info_dict, log=list()):
@@ -50,7 +49,7 @@ def event_from_dict(info_dict, log=list()):
         #         event.add(component, dt)
         #         continue
 
-        # for component in ("uid", "duration", "summary", "description", 
+        # for component in ("uid", "duration", "summary", "description",
         #                   "location", "geo",):
         #     if key.lower() == component:
         #         log.append("Parsed {} : {}".format(component, value))
@@ -97,12 +96,12 @@ def get_url(url):
     """
     Fetch `url` and return response data if http response = 200 or return None
     """
-    logger.debug("Fetching URL: {}".format(url))
+    logger.debug("Fetching URL: %s", url)
     try:
         result = urlfetch.fetch(url)
         if result.status_code == 200:
             return result.content
         else:
-            logger.warning("Got bad response {}".format(result.status_code))
+            logger.warning("Got bad response %s", result.status_code)
     except urlfetch.Error:
         logger.exception("Caught exception fetching url")
