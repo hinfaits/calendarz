@@ -23,8 +23,8 @@ class Calendar(ndb.Model):
 
     def serve_ics(self, flush_cache=False):
         """
-        Returns an ics file (str) and a log (list)
-        `log` is a list of strings chronologically describing how the 
+        Returns an ics file (str) and a log (list), attempt to retrieve ics from cache
+        `log` is a list of strings chronologically describing how the
             ics file came to be
         """
         six_hours = 21600
@@ -47,7 +47,7 @@ class Calendar(ndb.Model):
         cal.add('version', '2.0')
         cal.add('x-wr-calname', 'My Calendar')
         cal.add('prodid', '-//Calendarz//Aaron Tsui//EN')
-        cal.add('x-original-url', 'http://hinfaits.com/')
+        cal.add('x-original-url', 'https://plasma-shift-157500.appspot.com')
         # cal.add('dtstamp', datetime.now())
         for event_dict in self.source.get().get_events(log):
             count += 1
@@ -81,7 +81,7 @@ class Calendar(ndb.Model):
     @classmethod
     def _unique_id(cls):
         while True:
-            # There's 1e7+ possible names so guess and check 
+            # There's 1e7+ possible names so guess and check
             #   should not be too bad
             candidate_id = names.random_pair(6)
             if not cls.get_by_id(candidate_id):
