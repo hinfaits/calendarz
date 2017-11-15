@@ -8,6 +8,7 @@ import dateutil.parser
 
 logger = logging.getLogger(__name__)
 
+HTTP_TIMEOUT = 10
 
 def validate_url(url):
     parsed_url = urlparse(url)
@@ -98,6 +99,7 @@ def get_url(url):
     """
     logger.debug("Fetching URL: %s", url)
     try:
+        urlfetch.set_default_fetch_deadline(HTTP_TIMEOUT)
         result = urlfetch.fetch(url)
         if result.status_code == 200:
             return result.content
